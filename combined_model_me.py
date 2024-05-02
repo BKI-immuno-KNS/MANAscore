@@ -294,10 +294,10 @@ Y_PROB_PP3ni = voting_ni_classifier.predict_proba(X_TEST_ni)[:, 1]
 
 AUC_SCORE_PP3ni = roc_auc_score(Y_TEST_ni, Y_PROB_PP3ni)
 
-IS2_dni = pd.DataFrame({'barcode':X_TEST_ni.index,
+PP3_dni = pd.DataFrame({'barcode':X_TEST_ni.index,
                     'label':Y_TEST_ni,
                     'score':Y_PROB_PP3ni})
-IS2_dni.to_csv('PP3_voting_ni_test_score.csv')
+PP3_dni.to_csv('PP3_voting_ni_test_score.csv')
 
 AUC_SCORE_PP3ni
 
