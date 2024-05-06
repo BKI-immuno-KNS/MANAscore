@@ -31,6 +31,8 @@ ser$score <- score[rownames(ser[[]]),]$score
 
 ser_pos <- subset(ser, subset= patient %in% c('Z1513','Z1504','Z1525'))
 
+ser_pos_noC5 <- subset(ser_pos, subset=seurat_clusters!=5)
+
 FeaturePlot(ser_pos_noC5,features = c('score'),order=T) &
   scale_colour_gradientn(colours = rev(brewer.pal(n = 11, name = "RdBu"))) &
   # labs(title='Imputation MANAscore') &
@@ -57,23 +59,28 @@ ggsave('Merkel_pos_MANAscore_noC5.tiff', height=3.2, width=7)
 
 
 ## MCPyV
-ser_pos$MCPyV_clone <- ifelse(ser_pos$`MCPyV_specific Clone T cells c1`=='1', 1, 0)
-FeaturePlot(ser_pos, features = c('MCPyV_clone'), cols = c('grey','red'), order=T) + NoLegend() + NoAxes()
+ser_pos_noC5$MCPyV_clone <- ifelse(ser_pos$`MCPyV_specific Clone T cells c1`=='1', 1, 0)
+FeaturePlot(ser_pos_noC5, features = c('MCPyV_clone'), cols = c('grey','red'), order=T) + NoLegend() + NoAxes()
 ggsave('Merkel_pos_MCPyV.tiff', height=3.2, width=3.5)
 ##
-ser_pos$MCPyV <- ifelse(ser_pos$`MCPyV_specific T cells`=='1', 1, 0)
+ser_pos_noC5$MCPyV <- ifelse(ser_pos$`MCPyV_specific T cells`=='1', 1, 0)
 
 ##
-umap <- ser_pos@reductions$umap@cell.embeddings %>% as.data.frame()
+umap <- ser_pos_noC5@reductions$umap@cell.embeddings %>% as.data.frame()
 umap$barcode <- rownames(umap) 
-umap$seurat_clusters <- ser_pos$seurat_clusters
+umap$seurat_clusters <- ser_pos_noC5$seurat_clusters
 
-umap$MCPyV_specific <- ser_pos[[]]$`MCPyV_specific T cells`
-umap$MCPyV_specific_clone <- ser_pos[[]]$`MCPyV_specific Clone T cells c1`
-umap %>% filter(seurat_clusters!=5) %>% filter(MCPyV_specific=='1' & MCPyV_specific_clone=='1') %>% dim()
-umap %>% filter(seurat_clusters!=5) %>% filter(MCPyV_specific_clone=='1') %>% dim()
+umap$MCPyV_specific <- ser_pos_noC5[[]]$`MCPyV_specific T cells`
+umap$MCPyV_specific_clone <- ser_pos_noC5[[]]$`MCPyV_specific Clone T cells c1`
+umap %>% 
+  # filter(seurat_clusters!=5) %>%
+  filter(MCPyV_specific=='1' & MCPyV_specific_clone=='1') %>% dim() ## 823
+umap %>% 
+  # filter(seurat_clusters!=5) %>% 
+  filter(MCPyV_specific_clone=='1') %>% dim() ## 4473
 
-umap %>% filter(seurat_clusters!=5) %>%
+umap %>% 
+  # filter(seurat_clusters!=5) %>%
   ggplot(aes(x=UMAP_1, y=UMAP_2)) +
   geom_point(col='grey',size=0.1) +
   geom_point(data=umap%>% filter(MCPyV_specific=='1' & MCPyV_specific_clone=='1'),aes(x=UMAP_1, y=UMAP_2), color='red', size=0.5)+
@@ -83,7 +90,8 @@ umap %>% filter(seurat_clusters!=5) %>%
 ggsave('Merkel_pos_MCPyV_by_CITEseq_no_C5.tiff', height=3.2, width=3.2)
 
 ##
-umap %>% filter(seurat_clusters!=5) %>% 
+umap %>% 
+  # filter(seurat_clusters!=5) %>% 
   ggplot(aes(x=UMAP_1, y=UMAP_2)) +
   geom_point(col='grey',size=0.1) +
   geom_point(data=umap%>% filter(MCPyV_specific_clone=='1'),aes(x=UMAP_1, y=UMAP_2), color='red', size=0.5)+
@@ -93,7 +101,8 @@ umap %>% filter(seurat_clusters!=5) %>%
 ggsave('Merkel_pos_MCPyV_clone_by_CITEseq.tiff', height=3.2, width=3.2)
 
 TCR <- readRDS('trab.wide.rds')
-ser_pos$TRB_aa_1 <- ser_pos[[]] %>% left_join(TCR) %>% .[,'TRB_aa_1']
+# ser_pos$TRB_aa_1 <- ser_pos[[]] %>% left_join(TCR) %>% .[,'TRB_aa_1']
+ser_pos_noC5$TRB_aa_1 <- ser_pos_noC5[[]] %>% left_join(TCR) %>% .[,'TRB_aa_1']
 ## scatter plot
 
 Cutoff = NULL
@@ -108,7 +117,7 @@ for(k in 1:length(sample)){
   ps = sample[k]
   print(ps)
   
-  d = ser_pos[[]] %>% filter(seurat_clusters!=5) %>% filter(patient==ps) 
+  d = ser_pos_noC5[[]] %>%  filter(patient==ps) 
   
   di <- density(d$score_i)
   trough1 <- NULL
@@ -225,7 +234,7 @@ TCRType_count <- D %>% filter(is.na(TRB_aa_1)==FALSE) %>% group_by(patient, TRB_
 write.csv(TCRType_count,'Merkel_pTRC_nonPTRC_count.csv',quote=FALSE, row.names = FALSE)
 
 ##
-ser_pos_noC5 <- subset(ser_pos, subset=seurat_clusters!=5)
+
 ser_pos_noC5$MANAscoreType <- D[rownames(ser_pos_noC5[[]]),]$MANAscoreType
 ser_pos_noC5$clonal.size <- D[rownames(ser_pos_noC5[[]]),]$clonal.size
 ser_pos_noC5$clonal.size <- as.numeric(ser_pos_noC5$clonal.size)
@@ -277,35 +286,16 @@ genes <- c('CD8A','CD4','ITGAE','ZNF683','GZMK','GZMB','PRF1',
 FeaturePlot(ser_pos_downsample, features = genes, cols = c('grey','red'),order=T, ncol = 7) & 
   NoLegend() &NoAxes()
 ggsave('Merkel_pos_marker.tiff', height=7.5, width=13.75)
-saveRDS(ser_pos[[]], 'ser_pos_meta.rds')
-#Marker genes
+saveRDS(ser_pos_noC5[[]], 'ser_pos_noC5_meta.rds')
 
-install.packages('wesanderson')
+# install.packages('wesanderson')
 library(wesanderson)
 table(ser$integrated_snn_res.0.5) 
-DimPlot(subset(ser_pos, subset = seurat_clusters!=5) , group.by = 'seurat_clusters') &
+DimPlot(ser_pos_noC5, group.by = 'seurat_clusters') &
   scale_color_manual(values =brewer.pal(10, 'Paired')[-6]) & NoLegend() & NoAxes() 
 ggsave('Merkel_cluster_umap_without_C5.tiff', height=5, width=4.8)
 Idents(ser_pos) <- 'seurat_clusters'
-marker <- FindAllMarkers(ser_pos, only.pos = T, min.pct = 0.1, logfc.threshold = 0.25)
+marker <- FindAllMarkers(ser_pos_noC5, only.pos = T, min.pct = 0.1, logfc.threshold = 0.25)
 
 marker_sig <- marker %>% filter(p_val_adj<0.05) 
 write.csv(marker_sig, 'Merkle_cluster_marker.csv', quote=FALSE, row.names = FALSE)
-
-##
-ser_pos$MCPyV_new <- ifelse(is.na(ser_pos$TRB_aa_1), ser_pos$TRB_aa_1, ser_pos$MCPyV) ## 
-tcr_clonal_size = ser_pos[[]] %>% filter
-##
-ser_pos[[]] %>% 
-  # filter(seurat_clusters==5)  %>%
-  group_by(MCPyV, MCPyV_clone, TRB_aa_1) %>% summarise(n=n()) %>% filter(MCPyV==1 | MCPyV_clone==1) %>% as.data.frame() 
-
-ser_pos[[]] %>% filter(MCPyV_new==1) %>% group_by(,`MCPyV_specific T cells`) %>% summarise(n=n())
-ser_pos[[]] %>% filter(is.na(MCPyV_new)) %>% filter(MCPyV==1) %>% group_by(seurat_clusters) %>% summarise(n=n())
-
-ser_pos[[]] %>% filter(seurat_clusters==5) %>% group_by(patient) %>%
-  summarise(n=n())
-
-ser_pos[[]] %>% filter(seurat_clusters==5) %>%
-  filter(MCPyV==1) %>% dim()
-
