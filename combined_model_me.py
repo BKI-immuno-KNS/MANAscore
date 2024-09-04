@@ -12,12 +12,12 @@ from sklearn.model_selection import train_test_split, cross_val_score
 
 patient = ['p2','p11','p15']
 
-dat1 = pd.read_csv('D:/Project/ManaScore/01.Result/24.normalize_for_each_patient/p2_known.csv',index_col=0)
-dat2 = pd.read_csv('D:/Project/ManaScore/01.Result/24.normalize_for_each_patient/p2_known_RNA.csv',index_col=0)
-dat3 = pd.read_csv('D:/Project/ManaScore/01.Result/24.normalize_for_each_patient/p11_known.csv',index_col=0)
-dat4 = pd.read_csv('D:/Project/ManaScore/01.Result/24.normalize_for_each_patient/p11_known_RNA.csv',index_col=0)
-dat5 = pd.read_csv('D:/Project/ManaScore/01.Result/24.normalize_for_each_patient/p15_known.csv',index_col=0)
-dat6 = pd.read_csv('D:/Project/ManaScore/01.Result/24.normalize_for_each_patient/p15_known_RNA.csv',index_col=0)
+dat1 = pd.read_csv('./3gene/training/p2_known.csv',index_col=0) ## training data
+dat2 = pd.read_csv('./3gene/training/p2_known_RNA.csv',index_col=0)
+dat3 = pd.read_csv('./3gene/training/p11_known.csv',index_col=0)
+dat4 = pd.read_csv('./3gene/training/p11_known_RNA.csv',index_col=0)
+dat5 = pd.read_csv('./3gene/training/p15_known.csv',index_col=0)
+dat6 = pd.read_csv('./3gene/training/p15_known_RNA.csv',index_col=0)
 
 dats = [dat1,dat2,dat3,dat4,dat5,dat6]
 
@@ -162,7 +162,7 @@ voting_i_classifier = VotingClassifier(
     voting='soft')
 
 
-### non imputation
+### non-imputation
 
 # create a voting classifier with soft voting
 voting_ni_classifier = VotingClassifier(
@@ -223,7 +223,7 @@ AUC_SCORE_ni
 
 ## test on IS2
 ## imputation
-IS2i = pd.read_csv('D:/Project/ManaScore/01.Result/24.normalize_for_each_patient/IS2_known.csv',index_col=0)
+IS2i = pd.read_csv('./3gene/training/validation/IS2_known.csv',index_col=0)
 X_TEST_i = IS2i.iloc[:,IS2i.columns !="Label"][['CXCL13','ENTPD1','IL7R']]
 Y_TEST_i = IS2i['Label']
 
@@ -243,7 +243,7 @@ AUC_SCORE_IS2i
 
 ## test on IS2
 ## non-imputation
-IS2ni = pd.read_csv('D:/Project/ManaScore/01.Result/24.normalize_for_each_patient/IS2_known_RNA.csv',index_col=0)
+IS2ni = pd.read_csv('./3gene/validation/IS2_known_RNA.csv',index_col=0)
 X_TEST_ni = IS2ni.iloc[:,IS2ni.columns !="Label"][['CXCL13','ENTPD1','IL7R']]
 Y_TEST_ni = IS2ni['Label']
 
@@ -263,7 +263,7 @@ AUC_SCORE_IS2ni
 
 ## test on PP3
 ## imputation
-PP3i = pd.read_csv('D:/Project/ManaScore/01.Result/24.normalize_for_each_patient/PP3_known.csv',index_col=0)
+PP3i = pd.read_csv('./3gene/validation/PP3_known.csv',index_col=0)
 X_TEST_i = PP3i.iloc[:,PP3i.columns !="Label"][['CXCL13','ENTPD1','IL7R']]
 Y_TEST_i = PP3i['Label']
 
@@ -283,7 +283,7 @@ AUC_SCORE_PP3i
 
 ## test on PP3
 ## non-imputation
-PP3ni = pd.read_csv('D:/Project/ManaScore/01.Result/24.normalize_for_each_patient/PP3_known_RNA.csv',index_col=0)
+PP3ni = pd.read_csv('./3gene/validation/PP3_known_RNA.csv',index_col=0)
 X_TEST_ni = PP3ni.iloc[:,PP3ni.columns !="Label"][['CXCL13','ENTPD1','IL7R']]
 Y_TEST_ni = PP3ni['Label']
 
@@ -299,51 +299,8 @@ PP3_dni = pd.DataFrame({'barcode':X_TEST_ni.index,
                     'score':Y_PROB_PP3ni})
 PP3_dni.to_csv('PP3_voting_ni_test_score.csv')
 
-AUC_SCORE_PP3ni
-
-### test on Head & Neck data
-## imputation
-HNi = pd.read_csv('D:/Project/ManaScore/01.Result/10.HN/single_patient_data/Nivo1_known.csv',index_col=0)
-X_TEST_i = HNi.iloc[:,HNi.columns !="Label"][['CXCL13','ENTPD1','IL7R']]
-Y_TEST_i = HNi['Label']
-
-Y_PRED_HNi = voting_i_classifier.predict(X_TEST_i)
-
-# Calculate the probabilities of the positive class
-Y_PROB_HNi = voting_ni_classifier.predict_proba(X_TEST_i)[:, 1]
-
-AUC_SCORE_HNi = roc_auc_score(Y_TEST_i, Y_PROB_HNi)
-
-HN_di = pd.DataFrame({'barcode':X_TEST_i.index,
-                    'label':Y_TEST_i,
-                    'score':Y_PROB_HNi})
-HN_di.to_csv('Nivo1_voting_i_test_score.csv')
-
-
-
-AUC_SCORE_HNi
-
-HNni = pd.read_csv('D:/Project/ManaScore/01.Result/10.HN/single_patient_data/Nivo1_known_RNA.csv',index_col=0)
-X_TEST_ni = HNni.iloc[:,HNni.columns !="Label"][['CXCL13','ENTPD1','IL7R']]
-Y_TEST_ni = HNni['Label']
-
-Y_PRED_HNni = voting_ni_classifier.predict(X_TEST_ni)
-
-# Calculate the probabilities of the positive class
-Y_PROB_HNni = voting_ni_classifier.predict_proba(X_TEST_ni)[:, 1]
-
-AUC_SCORE_HNni = roc_auc_score(Y_TEST_ni, Y_PROB_HNni)
-
-HN_dni = pd.DataFrame({'barcode':X_TEST_ni.index,
-                    'label':Y_TEST_ni,
-                    'score':Y_PROB_HNni})
-HN_dni.to_csv('Nivo1_voting_ni_test_score.csv')
-
-
-AUC_SCORE_HNni
-
 ## p2:MAA-1 nonMANA-0 imputation
-p2_MAA_nonMANA = pd.read_csv('D:/Project/ManaScore/01.Result/24.normalize_for_each_patient/p2_MAA_nonMANA.csv',index_col=0)
+p2_MAA_nonMANA = pd.read_csv('./3gene/test/p2_MAA_nonMANA.csv',index_col=0)
 p2_MAA_nonMANA_1 = p2_MAA_nonMANA[p2_MAA_nonMANA['Label']==1]
 p2_MAA_nonMANA_0 = p2_MAA_nonMANA[p2_MAA_nonMANA['Label']==0]
 p2_MAA_nonMANA_0 = p2_MAA_nonMANA_0.loc[[i for i in p2_MAA_nonMANA_0.index if i in y_test1.index]]
@@ -368,7 +325,7 @@ MAA_di.to_csv('MAA_voting_i_test_score.csv')
 AUC_SCORE_MAAi
 
 ## p2:MAA-1 nonMANA-0 non-imputation
-p2_MAA_nonMANAni = pd.read_csv('D:/Project/ManaScore/01.Result/24.normalize_for_each_patient/p2_MAA_nonMANA_RNA.csv',index_col=0)
+p2_MAA_nonMANAni = pd.read_csv('./3gene/test/p2_MAA_nonMANA_RNA.csv',index_col=0)
 p2_MAA_nonMANA_1 = p2_MAA_nonMANAni[p2_MAA_nonMANAni['Label']==1]
 p2_MAA_nonMANA_0 = p2_MAA_nonMANAni[p2_MAA_nonMANAni['Label']==0]
 p2_MAA_nonMANA_0 = p2_MAA_nonMANA_0.loc[[i for i in p2_MAA_nonMANA_0.index if i in y_test2.index]]
