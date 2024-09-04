@@ -13,6 +13,8 @@
 - 09.MANAscore.on.metastatic_cancer.R
 - 10.MANAscore.on.MCPyV_pos_MCC.R
 - combined_model_me.py Model construction, and the score prediction on unseen data
-  ### file
+### file
 - 3gene/ Three gene imputed and non-imputed matrix of ground truth for training and test data in melanoma, validation data in Lung cancer. MANA-/MAA-specific TIL are with label of 1, EBV-/flu-specific TIL are with label of 0.  
+  
+
 
