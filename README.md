@@ -22,7 +22,7 @@
 - scikit-learn
 - pandas
 - numpy
-#### process
+#### Process
 - step 1 Construct 6 linear regression models
 - step 2 Construct 6 random forest models
 - step 3 Construct imputation combine voting models (3 linear regression models and 3 random forest models from imputaion data) and non-imputation combine voting model (3 linear regression models and 3 random forest models from non-imputaion data)
