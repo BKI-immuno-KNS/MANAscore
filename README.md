@@ -1,6 +1,6 @@
 # A minimal gene set characterizes multiple classes of tumor-specific TIL among different cancer types
 ## overview
-
+### script
 - 00.integration.R Integration CD8 T cells from NSCLC and melanoma
 - 01.MANAscore.data.prepare.R
 - 02.ROC.curves.R ROC curves generated for different models including published signatures (NeoTCR8 and CXCL13) on test and validation data
@@ -13,5 +13,6 @@
 - 09.MANAscore.on.metastatic_cancer.R
 - 10.MANAscore.on.MCPyV_pos_MCC.R
 - combined_model_me.py Model construction, and the score prediction on unseen data
+  ### file
 - 3gene/ Three gene imputed and non-imputed matrix of ground truth for training and test data in melanoma, validation data in Lung cancer. MANA-/MAA-specific TIL are with label of 1, EBV-/flu-specific TIL are with label of 0.  
 
