@@ -59,11 +59,11 @@ ggsave('Merkel_pos_MANAscore_noC5.tiff', height=3.2, width=7)
 
 
 ## MCPyV
-ser_pos_noC5$MCPyV_clone <- ifelse(ser_pos$`MCPyV_specific Clone T cells c1`=='1', 1, 0)
+ser_pos_noC5$MCPyV_clone <- ifelse(ser_pos_noC5$`MCPyV_specific Clone T cells c1`=='1', 1, 0)
 FeaturePlot(ser_pos_noC5, features = c('MCPyV_clone'), cols = c('grey','red'), order=T) + NoLegend() + NoAxes()
 ggsave('Merkel_pos_MCPyV.tiff', height=3.2, width=3.5)
 ##
-ser_pos_noC5$MCPyV <- ifelse(ser_pos$`MCPyV_specific T cells`=='1', 1, 0)
+ser_pos_noC5$MCPyV <- ifelse(ser_pos_noC5$`MCPyV_specific T cells`=='1', 1, 0)
 
 ##
 umap <- ser_pos_noC5@reductions$umap@cell.embeddings %>% as.data.frame()
