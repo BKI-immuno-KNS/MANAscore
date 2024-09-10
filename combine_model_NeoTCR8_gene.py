@@ -1,14 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
-
-# In[132]:
-
-
 cd D:/Projects/01.MANAscore/01.Result/36.12_single_moldes/49.Combine_voting_NeoTCR8/
-
-
-# In[4]:
-
 
 import pandas as pd
 import numpy as np
@@ -22,25 +14,14 @@ from sklearn.model_selection import train_test_split, cross_val_score
 import pickle
 
 
-# In[14]:
-
-
-dat1 = pd.read_csv('D:/Projects/01.MANAscore/01.Result/24.normalize_for_each_patient/p2_known_NeoTCR8.csv',index_col=0)
-dat2 = pd.read_csv('D:/Projects/01.MANAscore/01.Result/24.normalize_for_each_patient/p2_known_NeoTCR8_RNA.csv',index_col=0)
-dat3 = pd.read_csv('D:/Projects/01.MANAscore/01.Result/24.normalize_for_each_patient/p11_known_NeoTCR8.csv',index_col=0)
-dat4 = pd.read_csv('D:/Projects/01.MANAscore/01.Result/24.normalize_for_each_patient/p11_known_NeoTCR8_RNA.csv',index_col=0)
-dat5 = pd.read_csv('D:/Projects/01.MANAscore/01.Result/24.normalize_for_each_patient/p15_known_NeoTCR8.csv',index_col=0)
-dat6 = pd.read_csv('D:/Projects/01.MANAscore/01.Result/24.normalize_for_each_patient/p15_known_NeoTCR8_RNA.csv',index_col=0)
-
-
-# In[16]:
-
+dat1 = pd.read_csv('./NeoTCR8/training/p2_known_NeoTCR8.csv',index_col=0)
+dat2 = pd.read_csv('./NeoTCR8/training/p2_known_NeoTCR8_RNA.csv',index_col=0)
+dat3 = pd.read_csv('./NeoTCR8/training/p11_known_NeoTCR8.csv',index_col=0)
+dat4 = pd.read_csv('./NeoTCR8/training/p11_known_NeoTCR8_RNA.csv',index_col=0)
+dat5 = pd.read_csv('./NeoTCR8/training/p15_known_NeoTCR8.csv',index_col=0)
+dat6 = pd.read_csv('./NeoTCR8/training/p15_known_NeoTCR8_RNA.csv',index_col=0)
 
 dats = [dat1,dat2,dat3,dat4,dat5,dat6]
-
-
-# In[18]:
-
 
 for i in range(6):
     dat = dats[i]
@@ -64,25 +45,17 @@ for i in range(6):
     myVars4 = vars()
     myVars4.__setitem__(myStr4,y_test)
 
-
-# In[20]:
-
-
 X_TRAIN = [X_train1,X_train2,X_train3,X_train4,X_train5,X_train6]
 X_TEST = [X_test1,X_test2,X_test3,X_test4,X_test5,X_test6]
 y_TRAIN = [y_train1,y_train2,y_train3,y_train4,y_train5,y_train6]
 y_TEST = [y_test1,y_test2,y_test3,y_test4,y_test5,y_test6]
 
-
-# In[58]:
-
-
 ## ground truth
 ## LM
 ## LMi_p2, LMni_p2, LMi_p11,LMni_p11,LMi_p15,LMni_p15, LMi_IS2, LMni_IS2,LMi_pp, LMni_pp3
-
 ## RF
 ##  RFi_p11,RFni_p11, RFi_IS2, RFi_IS2, RFni_pp3
+
 LM = ['LMi_p2', 'LMni_p2', 'LMi_p11','LMni_p11','LMi_p15','LMni_p15']
 #RF = [RFi_p11,RFni_p11, RFi_IS2, RFi_IS2, RFni_pp3]
 LM_models = []
@@ -117,13 +90,7 @@ for i in range(6):
     myVars.__setitem__(myStr,model)
 
 
-# In[60]:
-
-
 LM_models = [LMi_p2, LMni_p2, LMi_p11,LMni_p11,LMi_p15,LMni_p15]
-
-
-# In[62]:
 
 
 ### RF = ['RFi_p11','RFni_p11', 'RFi_IS2', 'RFni_IS2', 'RFni_pp3'] ## selected RF models
@@ -174,13 +141,7 @@ for i in range(6):
     myVars.__setitem__(myStr,best_model)
 
 
-# In[64]:
-
-
 RF_models = [RFi_p2, RFni_p2, RFi_p11,RFni_p11,RFi_p15,RFni_p15]
-
-
-# In[66]:
 
 
 #import voting classifier 6+6 models
@@ -224,10 +185,6 @@ voting_ni_classifier = VotingClassifier(
                  ], 
     voting='soft')
 
-
-# In[68]:
-
-
 ## imputation
 # make predictions with the hard soft model
 mydats = [dat1,dat3,dat5]
@@ -245,16 +202,6 @@ di = pd.DataFrame({'barcode':pd.concat([X_test1, X_test3, X_test5]).index,
                  'score':Y_PROB_i})
 di.to_csv('voting_6_models_i_test_score_NeoTCR8.csv')
 
-
-# In[70]:
-
-
-AUC_SCORE_i
-
-
-# In[72]:
-
-
 ## non-imputation
 # make predictions with the soft voting model
 mydats = [dat2,dat4,dat6]
@@ -271,35 +218,6 @@ dni = pd.DataFrame({'barcode':pd.concat([X_test2, X_test4, X_test6]).index,
                     'score':Y_PROB_ni})
 
 dni.to_csv('voting_6_models_ni_test_score_NeoTCR8.csv')
-
-
-# In[74]:
-
-
-AUC_SCORE_ni
-
-
-# In[116]:
-
-
-voting_ni_classifier1
-
-
-# In[76]:
-
-
-voting_i_classifier
-
-
-# In[103]:
-
-
-pickle.dump(voting_i_classifier, open('NeoTCR8_voting_i_classifier.pkl', 'wb'))
-pickle.dump(voting_ni_classifier, open('NeoTCR8_voting_ni_classifier.pkl', 'wb'))
-
-
-# In[76]:
-
 
 ## test on IS2
 ## imputation
@@ -320,15 +238,6 @@ IS2_di = pd.DataFrame({'barcode':X_TEST_i.index,
 IS2_di.to_csv('IS2_voting_i_test_score_NeoTCR8.csv')
 
 
-# In[78]:
-
-
-AUC_SCORE_IS2i
-
-
-# In[82]:
-
-
 ## test on IS2
 ## non-imputation
 IS2ni = pd.read_csv('D:/Projects/01.MANAscore/01.Result/24.normalize_for_each_patient/IS2_known_NeoTCR8_RNA.csv',index_col=0)
@@ -346,16 +255,6 @@ IS2_dni = pd.DataFrame({'barcode':X_TEST_ni.index,
                     'label':Y_TEST_ni,
                     'score':Y_PROB_IS2ni})
 IS2_dni.to_csv('IS2_voting_ni_test_score_NeoTCR8.csv')
-
-
-# In[84]:
-
-
-AUC_SCORE_IS2ni
-
-
-# In[86]:
-
 
 ## test on PP3
 ## imputation
@@ -376,15 +275,6 @@ PP3_di = pd.DataFrame({'barcode':X_TEST_i.index,
 PP3_di.to_csv('PP3_voting_i_test_score_NeoTCR8.csv')
 
 
-# In[88]:
-
-
-AUC_SCORE_PP3i
-
-
-# In[94]:
-
-
 ## test on PP3
 ## non-imputation
 PP3ni = pd.read_csv('D:/Projects/01.MANAscore/01.Result/24.normalize_for_each_patient/PP3_known_NeoTCR8_RNA.csv',index_col=0)
@@ -402,16 +292,6 @@ PP3_dni = pd.DataFrame({'barcode':X_TEST_ni.index,
                     'label':Y_TEST_ni,
                     'score':Y_PROB_PP3ni})
 PP3_dni.to_csv('PP3_voting_ni_test_score_NeoTCR8.csv')
-
-
-# In[96]:
-
-
-AUC_SCORE_PP3ni
-
-
-# In[98]:
-
 
 ## p2:MAA-1 nonMANA-0 imputation
 p2_MAA_nonMANA = pd.read_csv('D:/Projects/01.MANAscore/01.Result/24.normalize_for_each_patient/p2_MAA_nonMANA_known_NeoTCR8.csv',index_col=0)
@@ -436,10 +316,6 @@ MAA_di = pd.DataFrame({'barcode':X_TEST_i.index,
 MAA_di.to_csv('MAA_voting_i_test_score_NeoTCR8.csv')
 AUC_SCORE_MAAi
 
-
-# In[100]:
-
-
 ## p2:MAA-1 nonMANA-0 non-imputation
 p2_MAA_nonMANAni = pd.read_csv('D:/Projects/01.MANAscore/01.Result/24.normalize_for_each_patient/p2_MAA_nonMANA_known_NeoTCR8_RNA.csv',index_col=0)
 p2_MAA_nonMANA_1 = p2_MAA_nonMANAni[p2_MAA_nonMANAni['Label']==1]
@@ -461,10 +337,6 @@ MAA_dni = pd.DataFrame({'barcode':X_TEST_ni.index,
                     'label':Y_TEST_ni,
                     'score':Y_PROB_MAAni})
 MAA_dni.to_csv('MAA_voting_ni_test_score_NeoTCR8.csv')
-AUC_SCORE_MAAni
-
-
-# In[141]:
 
 
 ## prediction on Merkel
@@ -478,10 +350,6 @@ prob2 = voting_ni_classifier.predict_proba(pdat2[list(X_train1.columns.values)])
 d2 = pd.DataFrame({'barcode': pdat2.index,'score_ni':prob2})
 d2.to_csv('D:/Projects/01.MANAscore/01.result/36.12_single_moldes/49.Combine_voting_NeoTCR8/NeoTCR8_voting_ni_Merkel_predict_score.csv')
 
-
-# In[142]:
-
-
 ## predicion on Oral cancer
 pdat1 = pd.read_csv('D:/Projects/01.MANAscore/01.result/36.12_single_moldes/49.Combine_voting_NeoTCR8/neoTCR8_oral.csv',index_col=0)
 prob1 = voting_i_classifier.predict_proba(pdat1[list(X_train1.columns.values)])[:,1]
@@ -493,10 +361,6 @@ prob2 = voting_ni_classifier.predict_proba(pdat2[list(X_train1.columns.values)])
 d2 = pd.DataFrame({'barcode': pdat2.index,'score_ni':prob2})
 d2.to_csv('D:/Projects/01.MANAscore/01.result/36.12_single_moldes/49.Combine_voting_NeoTCR8/NeoTCR8_voting_ni_oral_predict_score.csv')
 
-
-# In[143]:
-
-
 ## prediction on Metastatic cancer
 pdat1 = pd.read_csv('D:/Projects/01.MANAscore/01.result/36.12_single_moldes/49.Combine_voting_NeoTCR8/neoTCR8_rosenberg.csv',index_col=0)
 prob1 = voting_i_classifier.predict_proba(pdat1[list(X_train1.columns.values)])[:,1]
@@ -507,10 +371,3 @@ pdat2 = pd.read_csv('D:/Projects/01.MANAscore/01.result/36.12_single_moldes/49.C
 prob2 = voting_ni_classifier.predict_proba(pdat2[list(X_train1.columns.values)])[:,1]
 d2 = pd.DataFrame({'barcode': pdat2.index,'score_ni':prob2})
 d2.to_csv('D:/Projects/01.MANAscore/01.result/36.12_single_moldes/49.Combine_voting_NeoTCR8/NeoTCR8_voting_ni_rosenberg_predict_score.csv')
-
-
-# In[ ]:
-
-
-
-
