@@ -221,83 +221,82 @@ dni.to_csv('voting_6_models_ni_test_score.csv')
 
 AUC_SCORE_ni
 
-## test on IS2
+## test on MD01-004
 ## imputation
-IS2i = pd.read_csv('./3gene/training/validation/IS2_known.csv',index_col=0)
-X_TEST_i = IS2i.iloc[:,IS2i.columns !="Label"][['CXCL13','ENTPD1','IL7R']]
-Y_TEST_i = IS2i['Label']
+MD01_004i = pd.read_csv('./3gene/training/validation/MD01-004_known.csv',index_col=0)
+X_TEST_i = MD01_004i.iloc[:,MD01_004i.columns !="Label"][['CXCL13','ENTPD1','IL7R']]
+Y_TEST_i = MD01_004i['Label']
 
-Y_PRED_IS2i = voting_i_classifier.predict(X_TEST_i)
+Y_PRED_MD01_004i = voting_i_classifier.predict(X_TEST_i)
 
 # Calculate the probabilities of the positive class
-Y_PROB_IS2i = voting_ni_classifier.predict_proba(X_TEST_i)[:, 1]
+Y_PROB_MD01_004i = voting_ni_classifier.predict_proba(X_TEST_i)[:, 1]
 
-AUC_SCORE_IS2i = roc_auc_score(Y_TEST_i, Y_PROB_IS2i)
+AUC_SCORE_MD01_004i = roc_auc_score(Y_TEST_i, Y_PROB_MD01_004i)
 
-IS2_di = pd.DataFrame({'barcode':X_TEST_i.index,
+MD01_004_di = pd.DataFrame({'barcode':X_TEST_i.index,
                     'label':Y_TEST_i,
-                    'score':Y_PROB_IS2i})
-IS2_di.to_csv('IS2_voting_i_test_score.csv')
+                    'score':Y_PROB_MD01_004i})
+MD01_004_di.to_csv('MD01_004_voting_i_test_score.csv')
 
-AUC_SCORE_IS2i
+AUC_SCORE_MD01_004i
 
 ## test on IS2
 ## non-imputation
-IS2ni = pd.read_csv('./3gene/validation/IS2_known_RNA.csv',index_col=0)
-X_TEST_ni = IS2ni.iloc[:,IS2ni.columns !="Label"][['CXCL13','ENTPD1','IL7R']]
-Y_TEST_ni = IS2ni['Label']
+MD01_004ni = pd.read_csv('./3gene/validation/MD01-004_known_RNA.csv',index_col=0)
+X_TEST_ni = MD01_004ni.iloc[:,MD01_004ni.columns !="Label"][['CXCL13','ENTPD1','IL7R']]
+Y_TEST_ni = MD01_004ni['Label']
 
-Y_PRED_IS2ni = voting_ni_classifier.predict(X_TEST_i)
+Y_PRED_MD01_004ni = voting_ni_classifier.predict(X_TEST_i)
 
 # Calculate the probabilities of the positive class
 Y_PROB_IS2ni = voting_ni_classifier.predict_proba(X_TEST_ni)[:, 1]
 
-AUC_SCORE_IS2ni = roc_auc_score(Y_TEST_ni, Y_PROB_IS2ni)
+AUC_SCORE_MD01_004ni = roc_auc_score(Y_TEST_ni, Y_PROB_MD01_004ni)
 
-IS2_dni = pd.DataFrame({'barcode':X_TEST_ni.index,
+MD01_004_dni = pd.DataFrame({'barcode':X_TEST_ni.index,
                     'label':Y_TEST_ni,
-                    'score':Y_PROB_IS2ni})
-IS2_dni.to_csv('IS2_voting_ni_test_score.csv')
+                    'score':Y_PROB_MD01_004ni})
+MD01_004_dni.to_csv('MD01_004_voting_ni_test_score.csv')
 
-AUC_SCORE_IS2ni
+AUC_SCORE_MD01_004ni
 
-## test on PP3
+## test on MD01_005
 ## imputation
-PP3i = pd.read_csv('./3gene/validation/PP3_known.csv',index_col=0)
-X_TEST_i = PP3i.iloc[:,PP3i.columns !="Label"][['CXCL13','ENTPD1','IL7R']]
-Y_TEST_i = PP3i['Label']
+MD01_005i = pd.read_csv('./3gene/validation/MD01-005_known.csv',index_col=0)
+X_TEST_i = MD01_005i.iloc[:,MD01_005i.columns !="Label"][['CXCL13','ENTPD1','IL7R']]
+Y_TEST_i = MD01_005i['Label']
 
-Y_PRED_PP3i = voting_i_classifier.predict(X_TEST_i)
+Y_PRED_MD01_005i = voting_i_classifier.predict(X_TEST_i)
 
 # Calculate the probabilities of the positive class
-Y_PROB_PP3i = voting_ni_classifier.predict_proba(X_TEST_i)[:, 1]
+Y_PROB_MD01_005i = voting_ni_classifier.predict_proba(X_TEST_i)[:, 1]
 
-AUC_SCORE_PP3i = roc_auc_score(Y_TEST_i, Y_PROB_PP3i)
+AUC_SCORE_MD01_005i = roc_auc_score(Y_TEST_i, Y_PROB_MD01_005i)
 
-PP3_di = pd.DataFrame({'barcode':X_TEST_i.index,
+MD01_005_di = pd.DataFrame({'barcode':X_TEST_i.index,
                     'label':Y_TEST_i,
-                    'score':Y_PROB_PP3i})
-PP3_di.to_csv('PP3_voting_i_test_score.csv')
+                    'score':Y_PROB_MD01_005i})
+MD01_005_di.to_csv('MD01_005_voting_i_test_score.csv')
 
-AUC_SCORE_PP3i
+AUC_SCORE_MD01_005i
 
-## test on PP3
 ## non-imputation
-PP3ni = pd.read_csv('./3gene/validation/PP3_known_RNA.csv',index_col=0)
-X_TEST_ni = PP3ni.iloc[:,PP3ni.columns !="Label"][['CXCL13','ENTPD1','IL7R']]
-Y_TEST_ni = PP3ni['Label']
+MD01_005ni = pd.read_csv('./3gene/validation/MD01-005_known_RNA.csv',index_col=0)
+X_TEST_ni = MD01_005ni.iloc[:,MD01_005ni.columns !="Label"][['CXCL13','ENTPD1','IL7R']]
+Y_TEST_ni = MD01_005ni['Label']
 
-Y_PRED_PP3ni = voting_ni_classifier.predict(X_TEST_i)
+Y_PRED_MD01_005ni = voting_ni_classifier.predict(X_TEST_i)
 
 # Calculate the probabilities of the positive class
-Y_PROB_PP3ni = voting_ni_classifier.predict_proba(X_TEST_ni)[:, 1]
+Y_PROB_MD01_005ni = voting_ni_classifier.predict_proba(X_TEST_ni)[:, 1]
 
-AUC_SCORE_PP3ni = roc_auc_score(Y_TEST_ni, Y_PROB_PP3ni)
+AUC_SCORE_MD01_005ni = roc_auc_score(Y_TEST_ni, Y_PROB_MD01_005ni)
 
-PP3_dni = pd.DataFrame({'barcode':X_TEST_ni.index,
+MD01_005_dni = pd.DataFrame({'barcode':X_TEST_ni.index,
                     'label':Y_TEST_ni,
-                    'score':Y_PROB_PP3ni})
-PP3_dni.to_csv('PP3_voting_ni_test_score.csv')
+                    'score':Y_PROB_MD01_005ni})
+MD01_005_dni.to_csv('MD01_005_voting_ni_test_score.csv')
 
 ## p2:MAA-1 nonMANA-0 imputation
 p2_MAA_nonMANA = pd.read_csv('./3gene/test/p2_MAA_nonMANA.csv',index_col=0)
