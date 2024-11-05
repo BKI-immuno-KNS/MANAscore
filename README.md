@@ -1,4 +1,7 @@
 # A minimal gene set characterizes multiple classes of tumor-specific TIL among different cancer types
+## Overview
+Pinpointing tumor-specific T cell clones responsible for immunotherapy responses remains challenging. Based on previous findings that validated mutation-associated neoantigen (MANA)-specific CD8+ tumor-infiltrating lymphocytes (TIL) from several cancer types express high levels of CXCL13 and CD39 (ENTPD1), and low IL7R levels, we develop a ‘MANAscore’ using weighted expression levels of these three genes from lung cancer and melanoma single-cell RNAseq, aiming at prospectively identify MANA-specific TIL. Our three-gene MANAscore algorithm outperforms other RNAseq-based algorithms in identifying validated neoantigen-specific CD8+ clones and is further demonstrated to accurately identify TIL recognizing other classes of tumor antigens, including cancer-testis antigens, endogenous retroviruses, and viral oncogenes, and most of these TIL expressed a tissue resident memory program. Putative tumor-reactive cells (pTRC) identified via MANAscore in anti-PD-1-treated lung tumors had higher expression of checkpoint and cytotoxicity-related genes relative to putative non-tumor reactive cells. pTRC in pathologically responding tumors showed higher IL7R expression, lower checkpoint expression and had gene trajectories originating from a population with high expression of GZMK and moving toward a stem-like phenotype. Collectively, we show that MANAscore is a robust tool that can greatly enrich candidate tumor-specific T cells and be used to understand the functional programming and underlying biology of tumor-reactive TIL.
+
 ## MANAscore
 ### Installation
 Users shall also install the following python packages before using MANAscore
@@ -28,8 +31,10 @@ Users shall also install the following python packages before using MANAscore
 ### Files
 - ./MANAscore/3gene/ Three gene imputed and non-imputed matrix of ground truth for training and test data in melanoma, validation data in Lung cancer. MANA-/MAA-specific TIL are with label of 1, EBV-/flu-specific TIL are with label of 0.
 - ./MANAscore/models/ The imputation combine voting model (voting_i_classifier.pkl.gz) and non-imputation combine voting model (voting_ni_classifier.pkl.gz) saved for MANAscore prediction.
+
 - examples:
-  - ./MANAscore/example1.py: Loading exsited models for predition.
+  - ./MANAscore/example1.py: Loading exsiting models for predition.
+    
   - ./MANAscore/example2.py: Starting with loading ground truth to build the voting models then predict the MANAscore.
 
 ## Analyses
