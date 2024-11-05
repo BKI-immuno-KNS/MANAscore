@@ -1,6 +1,7 @@
 # A minimal gene set characterizes multiple classes of tumor-specific TIL among different cancer types
 ## MANAscore
-### Users shall also install the following python packages before using MANAscore
+### Installation
+Users shall also install the following python packages before using MANAscore
 - python==3.9
 - scikit-learn==1.4.2
 - pandas
@@ -15,7 +16,10 @@
   pip3 install scikit-learn==1.4.2
   pip3 install pandas
   pip3 install numpy
-  
+  ```
+  Then install MANAscore:
+  ```
+  git clone https://github.com/BKI-immuno-KNS/MANAscore.git
   ```
 ### Process
 - step 1 Construct 6 linear regression models
