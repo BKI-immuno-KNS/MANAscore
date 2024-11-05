@@ -5,7 +5,8 @@
 - scikit-learn==1.4.2
 - pandas
 - numpy
-Users can use [Anaconda][https://www.anaconda.com/download] to create a conda environment:
+
+  Users can use [Anaconda][https://www.anaconda.com/download] to create a conda environment:
   ```
   conda create -n manascore python==3.9
   ```
