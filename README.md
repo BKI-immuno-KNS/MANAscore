@@ -36,8 +36,13 @@ Users shall also install the following python packages before using MANAscore
 
 - examples:
   - ./MANAscore/example1.py: Loading exsiting models for predition.
-    
   - ./MANAscore/example2.py: Starting with loading ground truth to build the voting models then predict the MANAscore.
+  user can directly run example1.py and example2.py under ./MANAscore
+```
+conda activate manascore
+python example1.py
+python example2.py
+```
 
 ## Analyses
 - ./Analyses/00.integration.R Integration CD8 T cells from NSCLC and melanoma
