@@ -6,7 +6,7 @@ setup(
     description="A package for prediction the MANAscore for TIL",
     author="Zhen Zeng",
     author_email="zzeng22@jhmi.edu",
-    url="https://github.com/BKI-immuno-KNS/MANAscore",  # Replace with your GitHub repository URL
+    url="https://github.com/BKI-immuno-KNS/MANAscore",  
     packages=find_packages(),
     install_requires=[
         "numpy"
