@@ -1,4 +1,4 @@
-# Initialize the constructor
+# Initialize the model
 from MANAscore import MANAscore
 
 mana = MANAscore()
