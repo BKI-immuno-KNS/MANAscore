@@ -37,6 +37,7 @@ Users shall also install the following python packages before using MANAscore
 - examples:
   - ./MANAscore/example1.py: Loading exsiting models for predition.
   - ./MANAscore/example2.py: Starting with loading ground truth to build the voting models then predict the MANAscore.
+
 Users can directly run example1.py and example2.py under ./MANAscore
 ```
 conda activate manascore
