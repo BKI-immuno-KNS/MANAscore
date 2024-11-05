@@ -46,6 +46,8 @@ python example2.py
 ```
 
 ## Analyses
+### Description
+Including the R scripts for data integation, data preprocessing for MANAscore prediction, model evaluation and differential gene/signature analyses.
 - ./Analyses/00.integration.R Integration CD8 T cells from NSCLC and melanoma
 - ./Analyses/01.MANAscore.data.prepare.R
 - ./Analyses/02.ROC.curves.R ROC curves generated for different models including published signatures (NeoTCR8 and CXCL13) on test and validation data
