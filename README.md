@@ -1,22 +1,25 @@
 # A minimal gene set characterizes multiple classes of tumor-specific TIL among different cancer types
 ## MANAscore
-### Package required
+### Users shall also install the following python packages before using MANAscore
 - python==3.9
 - scikit-learn==1.4.2
 - pandas
 - numpy
+  ```
+  install
+  ```
 ### Process
 - step 1 Construct 6 linear regression models
 - step 2 Construct 6 random forest models
 - step 3 Construct imputation combine voting models (3 linear regression models and 3 random forest models from imputaion data) and non-imputation combine voting model (3 linear regression models and 3 random forest models from non-imputaion data)
 ### Files
-- 3gene/ Three gene imputed and non-imputed matrix of ground truth for training and test data in melanoma, validation data in Lung cancer. MANA-/MAA-specific TIL are with label of 1, EBV-/flu-specific TIL are with label of 0.
-- models/ The imputation combine voting model (voting_i_classifier.pkl.gz) and non-imputation combine voting model (voting_ni_classifier.pkl.gz) saved for MANAscore prediction.
+- ./MANAscore/3gene/ Three gene imputed and non-imputed matrix of ground truth for training and test data in melanoma, validation data in Lung cancer. MANA-/MAA-specific TIL are with label of 1, EBV-/flu-specific TIL are with label of 0.
+- ./MANAscore/models/ The imputation combine voting model (voting_i_classifier.pkl.gz) and non-imputation combine voting model (voting_ni_classifier.pkl.gz) saved for MANAscore prediction.
 - examples:
-  - example1.py: Loading exsited models for predition.
-  - example2.py: Starting with loading ground truth to build the voting models then predict the MANAscore.
-## Analyses
+  - ./MANAscore/example1.py: Loading exsited models for predition.
+  - ./MANAscore/example2.py: Starting with loading ground truth to build the voting models then predict the MANAscore.
 
+## Analyses
 - ./Analyses/00.integration.R Integration CD8 T cells from NSCLC and melanoma
 - ./Analyses/01.MANAscore.data.prepare.R
 - ./Analyses/02.ROC.curves.R ROC curves generated for different models including published signatures (NeoTCR8 and CXCL13) on test and validation data
