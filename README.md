@@ -5,9 +5,11 @@
 - scikit-learn==1.4.2
 - pandas
 - numpy
+Users can use [Anaconda][https://www.anaconda.com/download] to create a conda environment:
   ```
-  install
+  conda create -n manascore python==3.9
   ```
+  
 ### Process
 - step 1 Construct 6 linear regression models
 - step 2 Construct 6 random forest models
