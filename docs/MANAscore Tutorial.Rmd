@@ -208,3 +208,4 @@ document.addEventListener("DOMContentLoaded", function() {
   background-color: #5a6268; /* Darker gray on hover */
 }
 </style>
+```
