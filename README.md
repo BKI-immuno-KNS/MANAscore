@@ -31,7 +31,7 @@ Users shall also install the following python packages before using MANAscore
 - step 2 Construct 6 random forest models
 - step 3 Construct imputation combine voting models (3 linear regression models and 3 random forest models from imputaion data) and non-imputation combine voting model (3 linear regression models and 3 random forest models from non-imputaion data)
 ### Files
-- ./MANAscore/3gene/ Three gene imputed and non-imputed matrix of ground truth for training and test data in melanoma, validation data in Lung cancer. MANA-/MAA-specific TIL are with label of 1, EBV-/flu-specific TIL are with label of 0.
+- ./MANAscore/3gene/ Three gene imputed and non-imputed matrix of ground truth for training and test data in melanoma, validation data in lung cancer. MANA-/MAA-specific TIL are with label of 1, EBV-/flu-specific TIL are with label of 0.
 - ./MANAscore/models/ The imputation combine voting model (voting_i_classifier.pkl.gz) and non-imputation combine voting model (voting_ni_classifier.pkl.gz) saved for MANAscore prediction.
 
 - examples:
