@@ -45,7 +45,7 @@ Users shall also install the following python packages before using MANAscore
   python example2.py
   ```
 ## Tutorial
-For the user manual of TreeCorTreat, please refer to: https://bki-immuno-kns.github.io/MANAscore/MANAscore-Tutorial.html
+For the user manual of MANAscore, please refer to: https://bki-immuno-kns.github.io/MANAscore/MANAscore-Tutorial.html
 ## Analyses
 ### Description
 Including the R scripts for data integration, data preprocessing for MANAscore prediction, model evaluation and differential gene/signature analyses.
