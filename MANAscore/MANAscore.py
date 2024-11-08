@@ -215,3 +215,47 @@ class MANAscore:
         d_ni.to_csv(output_file_ni, index=False)
         print(f"Non-imputed classifier predictions saved to {output_file_ni}")
 
+def main():
+    parser = argparse.ArgumentParser(description="MANAscore Tool")
+    subparsers = parser.add_subparsers(dest="command", help="Available commands")
+        
+    train_parser = subparsers.add_parser("train", help="Train and save models")
+    train_parser.add_argument("--save_models", action="store_true", help="Save trained models after training")
+        
+    load_parser = subparsers.add_parser("load", help="Load saved models")
+    predict_parser = subparsers.add_parser("predict", help="Predict MANAscore using loaded models")
+    predict_parser.add_argument("input_file_i", help="Path to input file for imputed classifier")
+    predict_parser.add_argument("input_file_ni", help="Path to input file for non-imputed classifier")
+    predict_parser.add_argument("output_file_i", help="Path to save output file for imputed classifier")
+    predict_parser.add_argument("output_file_ni", help="Path to save output file for non-imputed classifier")
+        
+    args = parser.parse_args()
+    manascore = MANAscore()
+    if args.command == "train":
+        manascore.load_and_split_data()
+        manascore.train_logistic_models()
+        manascore.train_random_forest_models()
+        manascore.create_and_fit_voting_classifiers()
+        
+        
+        if args.save_models:
+            manasmanascore.save_voting_models()
+            print("Models saved successfully.")
+
+    elif args.command == "load":
+        print("Loading saved models...")
+        manascore.load_voting_models()
+        print("Models loaded successfully.")
+    
+    elif args.command == "predict":
+        print(f"Predicting scores for {args.input_file_i} and {args.input_file_ni}...")
+        if manascore.voting_i_classifier is None or manascore.voting_ni_classifier is None:
+            manascore.load_voting_models()
+        
+        manascore.predict_and_save_both(args.input_file_i, args.input_file_ni, args.output_file_i, args.output_file_ni)
+    else:
+        parser.print_help()
+if __name__ == "__main__":
+    main()
+
+
