@@ -18,4 +18,9 @@ setup(
         "License :: OSI Approved :: MIT License",
     ],
     python_requires='>=3.8',
+    entry_points={
+        'console_scripts': [
+            'manascore=MANAscore:main',  # Adjust if 'main' is located elsewhere
+        ],
+    },
 )
