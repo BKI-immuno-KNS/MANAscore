@@ -13,6 +13,7 @@ Users shall also install the following python packages before install MANAscore
 
   Users can use [Anaconda](https://www.anaconda.com/download) to create a conda environment:
   ```
+  source path/of/your/anaconda/bin/activate
   conda create -n manascore python==3.9
   ```
   Then install git-lfs for downloading large files:
