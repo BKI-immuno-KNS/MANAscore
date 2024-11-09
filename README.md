@@ -10,21 +10,22 @@ Users shall also install the following python packages before using MANAscore
 - python==3.9
 - scikit-learn==1.4.2
 - pandas
-- numpy
+
 
   Users can use [Anaconda](https://www.anaconda.com/download) to create a conda environment:
   ```
   conda create -n manascore python==3.9
   ```
-  Then install packages:
+  Then install git-lfs for downloading large files:
   ```
-  pip3 install scikit-learn==1.4.2
-  pip3 install pandas
-  pip3 install numpy
+  conda install -c conda-forge git-lfs
+  git lfs install
   ```
   Then install MANAscore:
   ```
   git clone https://github.com/BKI-immuno-KNS/MANAscore.git
+  cd path/of/MANAscore/MANAscore/
+  pip install -e .
   ```
 ### Process
 - step 1 Construct 6 linear regression models
