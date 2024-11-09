@@ -6,10 +6,9 @@ Pinpointing tumor-specific T cell clones responsible for immunotherapy responses
 ### Description
 Model construction and MANAscore prediction.
 ### Installation
-Users shall also install the following python packages before using MANAscore
-- python==3.9
-- scikit-learn==1.4.2
-- pandas
+Users shall also install the following python packages before install MANAscore
+- git-lfs
+
 
 
   Users can use [Anaconda](https://www.anaconda.com/download) to create a conda environment:
