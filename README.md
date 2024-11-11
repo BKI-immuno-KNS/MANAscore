@@ -13,7 +13,7 @@ Users shall also install the following python packages before install MANAscore
 
   Users can use [Anaconda](https://www.anaconda.com/download) to create a conda environment:
   ```
-  source path/of/your/anaconda/bin/activate
+  source path/of/your/anaconda/bin/activate ## activate your anaconda
   conda create -n manascore python==3.9
   ```
   Then install git-lfs for downloading large files:
@@ -35,16 +35,16 @@ Users shall also install the following python packages before install MANAscore
 - ./MANAscore/3gene/ Three gene imputed and non-imputed matrix of ground truth for training and test data in melanoma, validation data in lung cancer. MANA-/MAA-specific TIL are with label of 1, EBV-/flu-specific TIL are with label of 0.
 - ./MANAscore/models/ The imputation combine voting model (voting_i_classifier.pkl.gz) and non-imputation combine voting model (voting_ni_classifier.pkl.gz) saved for MANAscore prediction.
 
-- examples:
-  - ./MANAscore/example1.py: Loading exsiting models for predition.
-  - ./MANAscore/example2.py: Starting with loading ground truth to build the voting models then predict the MANAscore.
 
-  Users can directly run example1.py and example2.py under ./MANAscore
-  ```
-  conda activate manascore
-  python example1.py
-  python example2.py
-  ```
+Users can directly predict MANAscore using saved models under /models for their own data
+```
+manascore predict input_imputation_3_gene.csv input_non_imputation_3_gene.csv output_imputation_score.csv output_non_imputation_score.csv
+```
+Users can also construct models and then use the models to predict MANAscore
+```
+manascore train_predict input_imputation_3_gene.csv input_non_imputation_3_gene.csv output_imputation_score.csv output_non_imputation_score.csv
+```
+
 ## Tutorial
 For the user manual of MANAscore, please refer to: https://bki-immuno-kns.github.io/MANAscore/MANAscore-Tutorial.html
 ## Analyses
