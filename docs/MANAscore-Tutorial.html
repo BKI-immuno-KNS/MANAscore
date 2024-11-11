@@ -443,13 +443,16 @@ write.csv(RNA_3gene, &quot;dat_3gene_RNA.csv&quot;, quote=FALSE)
 <p>Option1: Loading the saved models for prediction</p>
 <pre class="shell"><code>manascore predict input_imputation_3_gene.csv input_non_imputation_3_gene.csv output_imputation_score.csv output_non_imputation_score.csv</code></pre>
 <p>Option2: Starting with loading ground truth to build the voting
-models then predict the MANAscore.</p>
+models then predict the MANAscore, the models will be saved under
+current folder</p>
 <pre class="shell"><code>manascore train_predict input_imputation_3_gene.csv input_non_imputation_3_gene.csv output_imputation_score.csv output_non_imputation_score.csv</code></pre>
-<p>The models are saved under current folder ## 4. Define
-MANAscore<sup>hi</sup> TIL{#4.-define-manascorehi-til} *** We set
-patient specific cutoffs for imputation MANAscore (MANAscore_i) and
-non-imputation MANAscore (MANAscore_ni) in tumor tissue because of
-patient heterogeneity.</p>
+</div>
+<div id="id_4.-define-manascorehi-til" class="section level2">
+<h2>4. Define MANAscore<sup>hi</sup> TIL</h2>
+<hr />
+<p>We set patient specific cutoffs for imputation MANAscore
+(MANAscore_i) and non-imputation MANAscore (MANAscore_ni) in tumor
+tissue because of patient heterogeneity.</p>
 <pre class="r"><code>m &lt;- ser[[]] %&gt;% group_by(sample) %&gt;% summarise(n=n())
 D &lt;- NULL
 Cutoff &lt;- NULL

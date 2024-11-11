@@ -73,11 +73,11 @@ Option1: Loading the saved models for prediction
 manascore predict input_imputation_3_gene.csv input_non_imputation_3_gene.csv output_imputation_score.csv output_non_imputation_score.csv
 ```
 
-Option2: Starting with loading ground truth to build the voting models then predict the MANAscore.
+Option2: Starting with loading ground truth to build the voting models then predict the MANAscore, the models will be saved under current folder
 ```shell
 manascore train_predict input_imputation_3_gene.csv input_non_imputation_3_gene.csv output_imputation_score.csv output_non_imputation_score.csv
 ```
-The models are saved under current folder
+
 ## 4. Define MANAscore^hi^ TIL{#4.-define-manascorehi-til}
 ***
 We set patient specific cutoffs for imputation MANAscore (MANAscore_i) and non-imputation MANAscore (MANAscore_ni) in tumor tissue because of patient heterogeneity.
