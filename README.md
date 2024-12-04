@@ -16,9 +16,16 @@ Users shall also install the following python packages before install MANAscore
   source path/of/your/anaconda/bin/activate ## activate your anaconda
   conda create -n manascore python==3.9
   ```
+  Activate environment
+  ```
+  conda activate manascore
+  ```
   Then install git-lfs for downloading large files:
   ```
   conda install -c conda-forge git-lfs
+  ```
+  Initiate git-lfs for downloading large model files saved:
+  ```
   git lfs install
   ```
   Then install MANAscore:
