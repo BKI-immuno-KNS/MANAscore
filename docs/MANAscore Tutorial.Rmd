@@ -114,7 +114,7 @@ for(z in 1:length(m[,1])){
                       cutoff_ni = cutoff2)
   Cutoff = rbind(Cutoff,cutoff)
   ##
-  plot1 <- ggscatter(d, x = "score_i", y = "score_ni",size = 0.5,title = ps,
+  plot1 <- ggscatter(d, x = "score_i", y = "score_ni",size = 0.5,title = s,
                      add = "reg.line",  # Add regressin line
                      add.params = list(color = "#008B45FF", fill = "lightgray"),
                      conf.int = TRUE # Add confidence interval
