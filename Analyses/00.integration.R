@@ -1,5 +1,4 @@
 ## integration NSCLC and melanoma
-## zzeng
 rm(list = ls()) 
 library(Seurat)
 library(data.table)
