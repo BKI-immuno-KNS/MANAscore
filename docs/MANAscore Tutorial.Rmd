@@ -153,7 +153,7 @@ for(z in 1:length(m[,1])){
   dens2
   dens1 + plot_spacer() + plot1 + dens2 +
     plot_layout(ncol = 2, nrow = 2, widths = c(4, 1), heights = c(1, 4))
-  ggsave(paste0('./correlation/s,'_correlation.jpeg'),height=6,width=6)
+  ggsave(paste0('./correlation/',s,'_correlation.jpeg'),height=6,width=6)
 }
 
 D %>% filter(it == 'hi' & nt =='hi') %>% dim() 
