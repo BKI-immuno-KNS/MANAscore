@@ -524,7 +524,7 @@ for(z in 1:length(m[,1])){
   dens2
   dens1 + plot_spacer() + plot1 + dens2 +
     plot_layout(ncol = 2, nrow = 2, widths = c(4, 1), heights = c(1, 4))
-  ggsave(paste0(&#39;./correlation/s,&#39;_correlation.jpeg&#39;),height=6,width=6)
+  ggsave(paste0(&#39;./correlation/,&#39;s,&#39;_correlation.jpeg&#39;),height=6,width=6)
 }
 
 D %&gt;% filter(it == &#39;hi&#39; &amp; nt ==&#39;hi&#39;) %&gt;% dim() 
